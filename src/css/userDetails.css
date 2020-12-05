@@ -1,0 +1,14 @@
+.userDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.userDetails label {
+  color: rgb(50, 50, 50);
+  display: inline;
+  width: 5rem;
+}
+
+.userDetails button {
+  width: 5rem;
+}

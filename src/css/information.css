@@ -1,0 +1,10 @@
+.information {
+  width: 90vw;
+  height: 20vh;
+
+  margin: 2rem auto;
+  padding: 1rem;
+
+  color: chartreuse;
+  background-color: black;
+}
