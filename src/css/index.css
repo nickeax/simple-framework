@@ -2,8 +2,10 @@
 @import "./global.css";
 @import "./userDetails.css";
 @import "./information.css";
+@import "./logger.css";
 
 *, *::before, *::after {
+  font-family: monospace;
   margin: 0;
   padding: 0;
   box-sizing: border-box;

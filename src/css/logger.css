@@ -1,0 +1,22 @@
+.log {
+  height: auto;
+  background: rgb(30, 30, 30);
+}
+
+.log-stamp {
+  font-weight: bold;
+  font-style: italic;
+  color: aqua;
+}
+
+.log-stamp::after {
+  content: ": ";
+}
+
+.log-item {
+  color: orange;
+}
+
+.log-item::before {
+  content: "";
+}
