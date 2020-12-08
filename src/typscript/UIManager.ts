@@ -1,19 +1,32 @@
+import { Logger } from './Logger/Logger'
+import { Utils } from './Utils/Utils';
 export class UIManager {
-  appRootElement: Element = document.querySelector('#appRoot');
+  dirtyCount: number = 0;
+  dirtyList: Array<string>;
+  ARE: any = null;
 
-  constructor() {
-    this.BuildUIElementList();
+  constructor(oe?: any) {
+    this.ARE = oe;
+    this.BuildInteractionsHash();
+    this.dirtyList = []; 
   }
   
-  BuildUIElementList() {
-
+  BuildInteractionsHash(el?: any) {
+    
   }
 
-  AddDirty() {
-
+  AddDirty(el: string): number {
+    ++this.dirtyCount;
+    this.dirtyList.push(el);
+     
+    return this.dirtyCount;
   }
 
   Handler() {
 
+  }
+
+  GetElementTypeAndName(el: string): Array<string>{
+    return el.split('_');
   }
 }

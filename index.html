@@ -9,20 +9,27 @@
   </head>
   <body>
     <div id="appRoot">
-      <div class="userDetails">
+      <div class="userDetails" id="userDetails">
         <label for="firstName">
           First Name
-          <input id="input_firstName" name="firstName" type="text" autocomplete="off" />
+          <input
+            data-dee-adbl="possibly use this data to config or manage anim styles"
+            id="firstName"
+            type="text"
+          />
           <br />
         </label>
         <label for="lastName">
           Last Name
-          <input id="input_lastName" name="lastName" type="text" autocomplete="off" />
+          <input
+            id="lastName"
+            type="text"
+          />
           <br />
         </label>
         <label for="email">
           Email
-          <input id="input_email" name="email" type="text" autocomplete="off" />
+          <input id="email" type="text" autocomplete="off" />
           <br />
         </label>
         <input id="button_submit" type="button" value="Submit Details" />
@@ -32,8 +39,6 @@
     <div class="information" id="information">
       Nothing to report
     </div>
-    <div class="log" id="log">
-
-    </div>
+    <div class="log" id="log"></div>
   </body>
 </html>

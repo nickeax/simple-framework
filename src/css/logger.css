@@ -4,9 +4,10 @@
 }
 
 .log-stamp {
+  font-family: monospace;
   font-weight: bold;
   font-style: italic;
-  color: aqua;
+  color: rgb(37, 144, 144);
 }
 
 .log-stamp::after {

@@ -1,65 +1,74 @@
+import { O_EXCL } from 'constants';
 import { ILoggerItem } from '../Models/ILoggerItem';
 import { Utils } from '../Utils/Utils';
 
 export class Logger {
-  outputElement: Element;
-  buffer: Array<ILoggerItem> = [];
-  utils: Utils;
-  weekDays: Array<string> = ['Sunday', 'Monday', 'Tuesday', 'Thursday', 'Friday', 'Saturday']
-  constructor(oe: Element) {
-    this.outputElement = oe
-    this.Init()
-    this.utils = new Utils()
+  private static buffer: Array<ILoggerItem> = [];
+  private static instance: Logger;
+  private static outputElement: any;
+
+  private constructor() {
+    console.log("Logger()");    
+    Logger.outputElement = document.querySelector('#log')
   }
 
-  Init() {}
+  public static GetLoggerReference(): Logger {
+    if(!Logger.instance) {
+      Logger.instance = new Logger();
+    }
 
-  Log(str: string) {
+    return Logger.instance;
+  }
+
+  public static OutputElement(str: string) {
+    this.outputElement = document.querySelector(str);
+  }
+
+  public static Log(str: string, imed: boolean=false) {
     let dt = new Date();
     let logItem: ILoggerItem = {
       stamp: `${dt.toISOString()}`,
       item: str,
     }
-    this.buffer.push(logItem)
+    Logger.buffer.push(logItem);
+    if(imed) Logger.Print();
   }
 
-  Print() {
-    let outerDiv = this.utils.CreateElement({
-      id: 'outerDiv',
+  public static LogP(str: string) {
+    let dt = new Date();
+    let logItem: ILoggerItem = {
+      stamp: `${dt.toISOString()}`,
+      item: str,
+    }
+    Logger.buffer.push(logItem);
+    Logger.Print();
+  }  
+
+  public static Print() {
+    let outerDiv = Utils.CreateElement({
+      id: 'outerDiv', 
       elementName: 'div',
       classes: ['outer'],
-    })
+    });
 
     this.buffer.forEach((element, i) => {
-      // let lineDiv = this.utils.CreateElement({
-      //   id: `lineDiv-${i}`,
-      //   elementName: "div",
-      //   classes: ['lineDiv']
-      // });
-
-      let tmp = this.utils.CreateElement({
+      let tmp = Utils.CreateElement({
         id: element.item,
         elementName: 'span',
         classes: ['log-stamp'],
       });
       tmp.innerHTML = element.stamp
       
-      let tmp2 = this.utils.CreateElement({
+      let tmp2 = Utils.CreateElement({
         id: element.item,
         elementName: 'span',
         classes: ['log-item'],
       })
       tmp2.innerHTML = element.item + "<br>";
-      
-      // tmp.classList = "log-stamp";
-      // tmp2.classList = "log-"
       outerDiv.appendChild(tmp);
       outerDiv.appendChild(tmp2);
-      // outerDiv.appendChild(lineDiv);
-    })
-    console.log(outerDiv)
-    this.outputElement = null;
-    this.outputElement = document.querySelector('#log');
-    this.outputElement.appendChild(outerDiv);
+    });
+    
+    Utils.GetUIElement("#log").appendChild(outerDiv)
   }
 }
