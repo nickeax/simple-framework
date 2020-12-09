@@ -4,4 +4,4 @@ import { Utils } from './Utils/Utils'
 
 const output = document.querySelector("#information");
 
-const uim = new UIManager(output);
+const uim = new UIManager(document.querySelector('#appRoot'));

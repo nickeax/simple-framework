@@ -25,4 +25,8 @@ export class Utils {
   public static GetResourceList(par: any, prop: string): any {
     return par[prop]
   }
+
+  public static GetElementTypeAndName(el: string) {
+    return el.split('_');
+  }
 }

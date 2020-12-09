@@ -3,10 +3,13 @@
   background: rgb(30, 30, 30);
 }
 
-.log-stamp {
+.log-stamp, .log-item {
   font-family: monospace;
   font-weight: bold;
   font-style: italic;
+}
+
+.log-stamp {
   color: rgb(37, 144, 144);
 }
 
