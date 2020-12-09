@@ -1,6 +1,8 @@
-import { IElementDescriptor } from '../Interfaces/IElementDescriptor'
-import { Logger } from '../Logger/Logger'
-export class Utils {
+import { IElementDescriptor } from '../Interfaces/IElementDescriptor';
+import { Logger } from '../Logger/Logger';
+import { Constants } from '../Constants';
+
+export class Utils {  
   private static instance: Utils
   private constructor() {}
 
@@ -8,7 +10,7 @@ export class Utils {
     if (!Utils.instance) {
       Utils.instance = new Utils()
     }
-    return Utils.instance
+    return Utils.instance;
   }
 
   public static CreateElement(el: IElementDescriptor): HTMLElement {
@@ -16,6 +18,22 @@ export class Utils {
     tmp.setAttribute('id', el.id ?? '')
     tmp.classList.add(...el.classes)
     return tmp
+  }
+
+  static CreateHashKey(items: Array<string>): number {
+    let count = 0;
+
+    items.forEach(x => {
+      for(let i = 0; i < x.length; i++) {
+        count += x.charCodeAt(i);
+      }
+      console.log(`x: ${x} ${x.length} [count: ${count}]`);
+      
+    })
+
+    // console.log(Constants.HASH_TABLE_SIZE % count);    
+
+    return (count * 3) % Constants.HASH_TABLE_SIZE;
   }
 
   public static GetUIElement(str: string): any {
@@ -28,5 +46,9 @@ export class Utils {
 
   public static GetElementTypeAndName(el: string) {
     return el.split('_');
+  }
+
+  public static ErrorReport(mess: string) {
+    throw new Error(`ERROR: ${mess}`);
   }
 }
