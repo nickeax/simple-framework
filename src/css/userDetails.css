@@ -1,14 +1,24 @@
 .userDetails {
+  width: 90vw;
+  margin: 3rem auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .userDetails label {
   color: rgb(50, 50, 50);
+  background-color: rgba(50, 50, 50, 0.05);
+  border-bottom: 1px solid rgba(50, 50, 50, 0.2);
+  border-left: 1px solid rgba(50, 50, 50, 0.2);
+  border-top: 1px solid rgba(50, 50, 50, 0.2);
   display: inline;
-  width: 5rem;
+  width: auto;
+  padding: 0.3rem;
 }
 
-.userDetails button {
+.userDetails #buttonSubmit {
   width: 5rem;
+  margin-top: 1rem;
 }

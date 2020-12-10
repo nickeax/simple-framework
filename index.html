@@ -10,22 +10,14 @@
   <body>
     <div id="appRoot">
       <div class="userDetails" id="userDetails">
-        <label for="firstName">
+        <label for="firstName" id="firstNameLabel">
           First Name
-          <input
-            data-dee-adbl="#button_submit"
-            id="firstName"
-            type="text"
-          />
+          <input data-dee-adbl="#button_submit" id="firstName" type="text" />
           <br />
         </label>
-        <label for="lastName">
+        <label for="lastName" id="lastNameLabel">
           Last Name
-          <input
-            data-dee-visi="#button_submit"
-            id="lastName"
-            type="text"
-          />
+          <input data-dee-visi="#button_submit" id="lastName" type="text" />
           <br />
         </label>
         <label for="email">
@@ -33,7 +25,37 @@
           <input id="email" type="text" autocomplete="off" />
           <br />
         </label>
-        <input id="button_submit" type="button" value="Submit Details" />
+        <label for="city">
+          City
+          <input data-dee-adbl="#button_submit" id="city" type="text" autocomplete="off" />
+          <br />
+        </label>
+        <label for="button_submit">
+          <input id="button_submit" type="button" value="Submit Details" />
+        </label>
+      </div>
+      
+      <div class="userDetails" id="userDetails2">
+        <label for="firstName2" id="firstNameLabel2">
+          First Name 2
+          <input data-dee-adbl="#button_submit" id="firstName2" type="text" />
+          <br />
+        </label>
+        <label for="lastName2" id="lastNameLabel2">
+          Last Name 2
+          <input data-dee-visi="#button_submit" id="lastName2" type="text" />
+          <br />
+        </label>
+        <label for="email2">
+          Email 2
+          <input id="email2" type="text" autocomplete="off" />
+          <br />
+        </label>
+        <label for="city2">
+          City 2
+          <input data-dee-adbl="#button_submit" id="city2" type="text" autocomplete="off" />
+          <br />
+        </label>
       </div>
     </div>
 

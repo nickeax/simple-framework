@@ -1,7 +1,12 @@
-import { Logger } from './Logger/Logger';
-import { UIManager } from './UIManager';
+import { Logger } from './Logger/Logger'
+import { UIManager } from './UIManager'
 import { Utils } from './Utils/Utils'
+import { HashTable } from './HashTable'
 
-const output = document.querySelector("#information");
+const output = document.querySelector('#information')
 
-const uim = new UIManager(document.querySelector('#appRoot'));
+let ht = new HashTable();
+const uim = new UIManager(ht, document.querySelector('#appRoot'))
+
+// ht.DisplayAll();
+console.log(uim.ToggleState('adbl', '#button_submit'));
