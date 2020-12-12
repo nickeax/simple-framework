@@ -1,49 +1,71 @@
-import { Logger } from './Logger/Logger';
-import { Utils } from './Utils/Utils';
-import { NODETYPE } from '../typscript/Enums/nodetype';
-import { Constants } from './Constants';
-import { DependantElement } from './Models/DependantElement';
-import { HashTable } from './HashTable';
+import { Logger } from './Logger/Logger'
+import { Utils } from './Utils/Utils'
+import { NODETYPE } from '../typscript/Enums/nodetype'
+import { Constants } from './Constants'
+import { HashTable } from './HashTable'
 import { IHashEntry } from './Interfaces/IHashEntry'
+// import { Http2ServerRequest } from 'http2'
+
+const l = console.log
+const t = console.table
+const c = console.clear
+const stamp = Logger.ConsoleWithStamp
+
 export class UIManager {
-  dirtyCount: number = 0;
-  dirtyList: Array<string>;
-  elements: Array<DependantElement> = [];
-  hashTable: HashTable;
-  ARE: any = null;
+  dirtyCount: number = 0
+  dirtyList: Array<string>
+  scopeList: Array<string> = ['able', 'visi', 'bind']
+  hashTable: HashTable
+  ARE: any = null
 
   constructor(h: HashTable, oe?: any) {
-    this.hashTable = h;
-    this.ARE = oe; // App Root Element
-    this.BuildInteractionsHash(oe);
-    this.dirtyList = [];
+    this.hashTable = h
+    this.ARE = oe // App Root Element
+    this.ARE.addEventListener('click', (ev) => {
+      return this.Handler(ev)
+    })
+    this.ARE.addEventListener('input', (ev) => {
+      return this.Handler(ev)
+    })
+    this.BuildInteractionsHash(oe)
+    this.InitUI()
+    this.dirtyList = []
+  }
+
+  InitUI() {
+    this.ResetScopes()
+  }
+
+  ResetScopes() {
+    this.scopeList.forEach((scope) => {
+      this.hashTable
+        .GetEntry(scope)
+        .forEach((x) => Utils.Ability(x.dependeeId, false))
+    })
   }
 
   BuildInteractionsHash(el?: any) {
-    this.BuildHashTable(el);
+    this.BuildHashTable(el)
   }
 
   BuildHashTable(curr: Element) {
-    let tmpScope = '';
-    if (curr.nodeName !== '#text') {
-      tmpScope = curr.id;
+    let tmpScope = ''
+    if (curr.nodeName !== '#text' && curr.nodeType !== 8) {
+      tmpScope = curr.id
       for (let i = 0; i < curr.attributes.length; i++) {
-        let currAttribute = curr.attributes[i];
-        let tmp = curr.attributes[i].name.split('-');
+        let currAttribute = curr.attributes[i]
+        let tmp = curr.attributes[i].name.split('-')
         if (tmp.indexOf('dee') !== -1) {
           if (
             tmp.length >= Constants.MIN_ATT_LENGTH &&
             tmp.length <= Constants.MAX_ATT_LENGTH
           ) {
-            this.elements.push(new DependantElement(curr.id, tmp[2]))
-            this.hashTable.AddEntry(`${
-              tmp[2]}`,
-              <IHashEntry>{
-                dependentId: curr.id,
-                scope: tmpScope,
-                dependeeType: tmp[2],
-                dependeeId: currAttribute.value,
-              })
+            this.hashTable.AddEntry(`${tmp[2]}`, <IHashEntry>{
+              dependentId: curr.id,
+              scope: currAttribute.value,
+              dependeeType: tmp[2],
+              dependeeId: currAttribute.value,
+            })
           }
         }
       }
@@ -58,27 +80,62 @@ export class UIManager {
     }
   }
 
-  ToggleState(key: string, deeId: string): string {
-    let res = this.hashTable.GetEntry(key);
+  Enable(key: string) {
+    let scopes = Array<string>()
+    let statuses = []
+    let keys = this.hashTable.GetEntry(key)
 
-    for(let i = 0; i < res.length; i++) {
-      if(!Utils.CheckValid(res[i].dependentId, "value")) {
-        (document.querySelector(res[i].dependeeId) as HTMLInputElement).disabled = true; 
-        return "Not Valid";
-      }      
-    }
+    keys.forEach((x) => {
+      if (scopes.indexOf(x.dependeeId) == -1) scopes.push(x.dependeeId)
+    })
 
-    return "Valid";
+    t(scopes)
+
+    keys.forEach((x) => {
+      statuses.push({
+        deepId: x.dependeeId,
+        valid: Utils.CheckValid(x.dependentId, 'value'),
+      })
+    })
+    t(statuses)
+    scopes.forEach((scope) => {
+      console.log(Utils.CheckSum(statuses, scope));
+      
+      Utils.Ability(scope, Utils.CheckSum(statuses, scope))
+    })
+
   }
 
   AddDirty(el: string): number {
-    ++this.dirtyCount
-    this.dirtyList.push(el)
-
+    if (this.dirtyList.indexOf(el) == -1) {
+      ++this.dirtyCount
+      this.dirtyList.push(el)
+    }
     return this.dirtyCount
   }
 
-  Handler() {}
+  Handler(ev) {
+    let tarId = ev.target.id
+    let tarEl = ev.target
+
+    if (tarId) {
+      switch (ev.type) {
+        case 'input':
+          this.AddDirty(ev.target.id)
+          // let ableList = this.hashTable.GetEntry('able')
+          tarEl.disabled = this.Enable('able')
+
+          break
+        case 'click':
+          let removeList = this.hashTable.GetEntry(tarId)
+
+          break
+
+        default:
+          break
+      }
+    }
+  }
 
   GetElementTypeAndName(el: string): Array<string> {
     return Utils.GetElementTypeAndName(el)

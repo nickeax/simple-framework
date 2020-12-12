@@ -5,8 +5,7 @@ import { HashTable } from './HashTable'
 
 const output = document.querySelector('#information')
 
-let ht = new HashTable();
+let ht = new HashTable()
 const uim = new UIManager(ht, document.querySelector('#appRoot'))
 
-// ht.DisplayAll();
-console.log(uim.ToggleState('adbl', '#button_submit'));
+ht.DisplayAll()

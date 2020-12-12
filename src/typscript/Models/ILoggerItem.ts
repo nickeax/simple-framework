@@ -1,4 +1,4 @@
 export type ILoggerItem = {
-  stamp: string;
-  item: string;
+  stamp: string
+  item: string
 }

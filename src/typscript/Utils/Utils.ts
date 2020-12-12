@@ -1,5 +1,5 @@
-import { Logger } from '../Logger/Logger';
-import { Constants } from '../Constants';
+import { Logger } from '../Logger/Logger'
+import { Constants } from '../Constants'
 
 export class Utils {
   private static instance: Utils
@@ -9,7 +9,7 @@ export class Utils {
     if (!Utils.instance) {
       Utils.instance = new Utils()
     }
-    return Utils.instance;
+    return Utils.instance
   }
   
   public static CreateElement(el: any): any {
@@ -28,17 +28,35 @@ export class Utils {
   }
   
   public static GetElementTypeAndName(el: string) {
-    return el.split('_');
+    return el.split('_')
   }
   
   static CheckValid(dependentId: string, propToCheck: string): boolean {
-    let str = (document.querySelector(`#${dependentId}`) as HTMLInputElement)[propToCheck].length;
-    console.log(str);
+    let str = this.GBI(dependentId)[propToCheck].length
     
-    return (document.querySelector(`#${dependentId}`) as HTMLElement)[propToCheck].length > 0;
+    return (document.querySelector(`#${dependentId}`) as HTMLElement)[propToCheck].length > 0
+  }
+
+  static CheckSum(testResults: Array<any>, scope: string): boolean {
+    let filtered = testResults.filter(x => x.deepId == scope)
+    let originalLength = filtered.length
+
+    let tmp = testResults.filter(x => {
+      return x.valid == true && x.deepId === scope
+    })
+    
+    return (originalLength === tmp.length) 
+  }
+
+  public static Ability(elId: string, setting: boolean) {
+    ((this.GBI(elId)) as HTMLInputElement).disabled = !setting
   }
 
   public static ErrorReport(mess: string) {
-    throw new Error(`ERROR: ${mess}`);
+    throw new Error(`ERROR: ${mess}`)
+  }
+
+  public static GBI(id: string): HTMLInputElement {
+    return document.getElementById(id) as HTMLInputElement
   }
 }
