@@ -46,7 +46,7 @@ Just a placeholder at this stage, but eventually will be used in conjunction wit
 **GBI()**
 A wrapper for **document.querySelector()** that will need to become more general in order to handle different Element Nodes.
 
-###HashTable.ts
+### HashTable.ts
 **HashTable()**
 The constructor initialises an empty array of **IHashEntry** arrays. The internal array of the **HashTable** is a fixed size which is important, as you'll see below.
 
