@@ -1,9 +1,9 @@
-import { Logger } from './Logger/Logger'
-import { Utils } from './Utils/Utils'
+import { Logger } from '../typscript/Logger/Logger'
+import { Utils } from '../typscript/Utils/Utils'
 import { NODETYPE } from '../typscript/Enums/nodetype'
-import { Constants } from './Constants'
-import { HashTable } from './HashTable'
-import { IHashEntry } from './Interfaces/IHashEntry'
+import { Constants } from '../typscript/Constants'
+import { HashTable } from '../HashTable/HashTable'
+import { IHashEntry } from '../HashTable/Interfaces/IHashEntry'
 // import { Http2ServerRequest } from 'http2'
 
 const l = console.log

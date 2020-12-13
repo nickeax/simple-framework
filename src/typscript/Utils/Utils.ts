@@ -49,6 +49,7 @@ export class Utils {
   }
 
   public static Ability(elId: string, setting: boolean) {
+    if(this.GBI(elId) === null) return
     ((this.GBI(elId)) as HTMLInputElement).disabled = !setting
   }
 

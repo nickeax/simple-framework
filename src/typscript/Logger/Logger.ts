@@ -1,5 +1,5 @@
 import { O_EXCL } from 'constants'
-import { ILoggerItem } from '../Models/ILoggerItem'
+import { ILoggerItem } from './Models/ILoggerItem'
 import { Utils } from '../Utils/Utils'
 
 export class Logger {

@@ -1,4 +1,4 @@
-import { Constants } from './Constants'
+import { Constants } from '../typscript/Constants'
 import { IHashEntry } from './Interfaces/IHashEntry'
 
 export class HashTable {
