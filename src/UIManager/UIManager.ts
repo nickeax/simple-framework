@@ -12,10 +12,10 @@ const c = console.clear
 const stamp = Logger.ConsoleWithStamp
 
 export class UIManager {
-  dirtyCount: number = 0
-  dirtyList: Array<string>
-  scopeList: Array<string> = ['able', 'visi', 'bind']
-  hashTable: HashTable
+  private dirtyCount: number = 0
+  private dirtyList: Array<string>
+  private readonly scopeList: Array<string> = ['able', 'visi', 'bind']
+  private hashTable: HashTable
   ARE: any = null
 
   constructor(h: HashTable, oe?: any) {
