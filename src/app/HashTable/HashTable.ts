@@ -1,4 +1,4 @@
-import { Constants } from '../typscript/Constants'
+import { Constants } from '../Constants'
 import { IHashEntry } from './Interfaces/IHashEntry'
 
 const l = console.log
@@ -23,16 +23,24 @@ export class HashTable {
     return this._data[this.CreateHashKey(key)]
   }
 
-  GetDependents(targetId: string): Array<string>{
-    let tmp = this._data.filter(x => x.dependentId === targetId)
-    return tmp.map(x => x.dependentId)
+  GetDependents(targetId: string): Array<string> {
+    let tmp = []
+
+    this._data.forEach((x) => {
+      if (x.length) {
+        tmp = x.filter((y) => y.dependeeId === targetId)
+      }
+    })
+    let tmp2 = tmp.map((x) => x.dependentId)
+    l(tmp2)
+    return tmp2
   }
 
   CreateHashKey(item: string): number {
     let count = 0
 
     for (let i = 0; i < item.length; i++) {
-      count += item.charCodeAt(i)    
+      count += item.charCodeAt(i)
     }
 
     return count % Constants.HASH_TABLE_SIZE
@@ -40,9 +48,9 @@ export class HashTable {
 
   IsDependee(t: string): boolean {
     let tmp = []
-    this._data.forEach(x => {
-      if(x.length) {
-        tmp = x.filter(y => {
+    this._data.forEach((x) => {
+      if (x.length) {
+        tmp = x.filter((y) => {
           return y.dependeeId === t
         })
       }
@@ -54,7 +62,9 @@ export class HashTable {
   DisplayAll() {
     this._data.forEach((x, i) => {
       x.forEach((entry) => {
-        console.log(`KEY:${i} DepId: ${entry.dependentId}, Scope: ${entry.scope}, DeeType: ${entry.dependeeType}, DeeId: ${entry.dependeeId}`)
+        console.log(
+          `KEY:${i} DepId: ${entry.dependentId}, Scope: ${entry.scope}, DeeType: ${entry.dependeeType}, DeeId: ${entry.dependeeId}`,
+        )
       })
     })
   }

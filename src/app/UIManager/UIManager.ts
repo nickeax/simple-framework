@@ -1,7 +1,7 @@
-import { Logger } from '../typscript/Logger/Logger'
-import { Utils } from '../typscript/Utils/Utils'
-import { NODETYPE } from '../typscript/Enums/nodetype'
-import { Constants } from '../typscript/Constants'
+import { Logger } from '../Logger/Logger'
+import { Utils } from '../Utils/Utils'
+import { NODETYPE } from '../Enums/nodetype'
+import { Constants } from '../Constants'
 import { HashTable } from '../HashTable/HashTable'
 import { IHashEntry } from '../HashTable/Interfaces/IHashEntry'
 // import { Http2ServerRequest } from 'http2'
@@ -111,10 +111,9 @@ export class UIManager {
   }
 
   ClearDirty(removeList: Array<string>) {
-    this.dirtyList = this.dirtyList.filter((x) => {
-      return removeList.indexOf(x) !== -1
+    removeList.forEach(x => {
+      this.dirtyList.splice(this.dirtyList.indexOf(x), 1)
     })
-    l('ClearDirty() Dirty List: ', this.dirtyList)
   }
 
   Handler(ev) {
@@ -134,8 +133,6 @@ export class UIManager {
           if (this.hashTable.IsDependee(tarId)) {
             this.ClearDirty(this.hashTable.GetDependents(tarId))
           }
-          // find dependee type and grab a list of those
-          //
           break
 
         default:

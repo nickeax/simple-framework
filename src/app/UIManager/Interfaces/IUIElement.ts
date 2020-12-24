@@ -1,4 +1,4 @@
-import { IDependant } from "./IDependant"
+import { IDependant } from "../../"
 
 export interface IUIElement {
   elementReference: any
