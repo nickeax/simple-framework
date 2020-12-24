@@ -128,11 +128,13 @@ export class UIManager {
 
           break
         case 'click':
-          l('Handler() Dirty List: ', this.dirtyList)
-          // ignore any targets that have no dependees
           if (this.hashTable.IsDependee(tarId)) {
             this.ClearDirty(this.hashTable.GetDependents(tarId))
           }
+          
+          // find this ID in the HashTable and call its action method
+          // which will be based on the type of dependee it is
+          
           break
 
         default:

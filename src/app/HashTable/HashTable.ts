@@ -31,9 +31,8 @@ export class HashTable {
         tmp = x.filter((y) => y.dependeeId === targetId)
       }
     })
-    let tmp2 = tmp.map((x) => x.dependentId)
-    l(tmp2)
-    return tmp2
+    
+    return tmp.map((x) => x.dependentId)
   }
 
   CreateHashKey(item: string): number {
