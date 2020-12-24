@@ -1,6 +1,9 @@
 import { Constants } from '../typscript/Constants'
 import { IHashEntry } from './Interfaces/IHashEntry'
 
+const l = console.log
+const t = console.table
+
 export class HashTable {
   private _data: Array<any> = new Array<any>()
 
@@ -20,6 +23,11 @@ export class HashTable {
     return this._data[this.CreateHashKey(key)]
   }
 
+  GetDependents(targetId: string): Array<string>{
+    let tmp = this._data.filter(x => x.dependentId === targetId)
+    return tmp.map(x => x.dependentId)
+  }
+
   CreateHashKey(item: string): number {
     let count = 0
 
@@ -28,6 +36,19 @@ export class HashTable {
     }
 
     return count % Constants.HASH_TABLE_SIZE
+  }
+
+  IsDependee(t: string): boolean {
+    let tmp = []
+    this._data.forEach(x => {
+      if(x.length) {
+        tmp = x.filter(y => {
+          return y.dependeeId === t
+        })
+      }
+    })
+
+    return tmp.length > 0
   }
 
   DisplayAll() {

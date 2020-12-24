@@ -63,7 +63,7 @@ The hashing process is not designed to produce *unique* indexes, but *indexed* i
 The class method **CreateHash()** is used to create the index at which to store the incoming item or retrieve an existing one.
 
 ### UIManagager.ts
-**UIManager.constructor()
+**UIManager.constructor()**
 The constructor takes a reference to the root ELement Node of the application, which is selected by the instantiator. It also stores a reference to an externally created *HashTable* object that is intrinsic to the *UIManager*. Next in the constructor, two event listeners are attached to the method **Handler()**. 
 Finally some initialisation methods are called.
 

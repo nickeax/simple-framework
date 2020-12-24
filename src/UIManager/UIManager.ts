@@ -89,21 +89,16 @@ export class UIManager {
       if (scopes.indexOf(x.dependeeId) == -1) scopes.push(x.dependeeId)
     })
 
-    t(scopes)
-
     keys.forEach((x) => {
       statuses.push({
         deepId: x.dependeeId,
         valid: Utils.CheckValid(x.dependentId, 'value'),
       })
     })
-    t(statuses)
+
     scopes.forEach((scope) => {
-      console.log(Utils.CheckSum(statuses, scope));
-      
       Utils.Ability(scope, Utils.CheckSum(statuses, scope))
     })
-
   }
 
   AddDirty(el: string): number {
@@ -111,7 +106,15 @@ export class UIManager {
       ++this.dirtyCount
       this.dirtyList.push(el)
     }
+
     return this.dirtyCount
+  }
+
+  ClearDirty(removeList: Array<string>) {
+    this.dirtyList = this.dirtyList.filter((x) => {
+      return removeList.indexOf(x) !== -1
+    })
+    l('ClearDirty() Dirty List: ', this.dirtyList)
   }
 
   Handler(ev) {
@@ -122,13 +125,17 @@ export class UIManager {
       switch (ev.type) {
         case 'input':
           this.AddDirty(ev.target.id)
-          // let ableList = this.hashTable.GetEntry('able')
           tarEl.disabled = this.Enable('able')
 
           break
         case 'click':
-          let removeList = this.hashTable.GetEntry(tarId)
-
+          l('Handler() Dirty List: ', this.dirtyList)
+          // ignore any targets that have no dependees
+          if (this.hashTable.IsDependee(tarId)) {
+            this.ClearDirty(this.hashTable.GetDependents(tarId))
+          }
+          // find dependee type and grab a list of those
+          //
           break
 
         default:

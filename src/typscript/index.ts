@@ -8,4 +8,4 @@ const output = document.querySelector('#information')
 let ht = new HashTable()
 const uim = new UIManager(ht, document.querySelector('#appRoot'))
 
-ht.DisplayAll()
+// ht.DisplayAll()
